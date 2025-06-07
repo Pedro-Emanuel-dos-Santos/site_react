@@ -1,0 +1,9 @@
+{
+    "oi": "Olá! Como posso te ajudar com React hoje?",
+    "sobre react": "React é uma biblioteca JavaScript para construção de interfaces de usuário.",
+    "criador do react": "React foi criado por Jordan Walke, um engenheiro do Facebook.",
+    "componente": "Componentes são unidades reutilizáveis que representam partes da interface.",
+    "criar componente": "Você pode criar um componente como uma função ou classe que retorna JSX.",
+    "jsx": "JSX é uma extensão de sintaxe que permite escrever HTML dentro do JavaScript."
+  }
+  

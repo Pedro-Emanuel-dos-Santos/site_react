@@ -1,115 +1,20 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  </head>
-  <body>
-    <div id="mydiv"></div>
-
-    <script type="text/babel">
-      function Page() {
-        const [times, setTimes] = React.useState([
-          { nome: "Flamengo", gols: 0, pontos: 0 },
-          { nome: "Vasco", gols: 0, pontos: 0 },
-          { nome: "Palmeiras", gols: 0, pontos: 0 },
-          { nome: "Corinthians", gols: 0, pontos: 0 },
-        ]);
-
-        const [mostrarTabela, setMostrarTabela] = React.useState(false);
-
-        const jogos = [
-          { time1: 0, time2: 1 }, // Flamengo x Vasco
-          { time1: 2, time2: 3 }, // Palmeiras x Corinthians
-        ];
-
-        function adicionarGol(index) {
-          const novosTimes = [...times];
-          novosTimes[index].gols += 1;
-          setTimes(novosTimes);
-        }
-
-        function finalizarJogo(i1, i2) {
-          const novosTimes = [...times];
-          const gols1 = novosTimes[i1].gols;
-          const gols2 = novosTimes[i2].gols;
-
-          // Zera os pontos antes de computar de novo
-          novosTimes[i1].pontos = 0;
-          novosTimes[i2].pontos = 0;
-
-          if (gols1 > gols2) {
-            novosTimes[i1].pontos = 3;
-          } else if (gols2 > gols1) {
-            novosTimes[i2].pontos = 3;
-          } else {
-            novosTimes[i1].pontos = 1;
-            novosTimes[i2].pontos = 1;
-          }
-
-          setTimes(novosTimes);
-        }
-
-        const tabelaOrdenada = [...times].sort((a, b) =>
-          b.pontos !== a.pontos ? b.pontos - a.pontos : b.gols - a.gols
-        );
-
-        return (
-          <div>
-            <h1>Jogos</h1>
-
-            {jogos.map((jogo, idx) => (
-              <div key={idx}>
-                <h2>Jogo {idx + 1}</h2>
-                <Time
-                  nome={times[jogo.time1].nome}
-                  gols={times[jogo.time1].gols}
-                  onAdd={() => adicionarGol(jogo.time1)}
-                />
-                {" X "}
-                <Time
-                  nome={times[jogo.time2].nome}
-                  gols={times[jogo.time2].gols}
-                  onAdd={() => adicionarGol(jogo.time2)}
-                />
-                <button onClick={() => finalizarJogo(jogo.time1, jogo.time2)}>
-                  Finalizar Jogo
-                </button>
-              </div>
-            ))}
-
-            <button onClick={() => setMostrarTabela(!mostrarTabela)}>
-              {mostrarTabela ? "Ocultar Tabela" : "Mostrar Tabela de Liderança"}
-            </button>
-
-            {mostrarTabela && (
-              <div>
-                <h2>Tabela de Liderança</h2>
-                <ol>
-                  {tabelaOrdenada.map((time, index) => (
-                    <li key={index}>
-                      {time.nome} – {time.pontos} pts ({time.gols} gols)
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            )}
-          </div>
-        );
-      }
-
-      function Time({ nome, gols, onAdd }) {
-        return (
-          <button onClick={onAdd}>
-            {nome} {gols}
-          </button>
-        );
-      }
-
-      const container = document.getElementById("mydiv");
-      const root = ReactDOM.createRoot(container);
-      root.render(<Page />);
-    </script>
-  </body>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ChatBot React</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">Do zero ao Next</div>
+    <div id="chat-log" class="chat-log"></div>
+    <div class="chat-input">
+      <input type="text" id="user-input" placeholder="Pergunte algo sobre React..." />
+      <button onclick="sendMessage()">Enviar</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
 </html>
